@@ -73,8 +73,8 @@ function SaturdayGamesHome() {
             textDecoration: 'none',
             transition: 'background 0.2s, color 0.2s',
             width: '100%'
-          }}>Main Players</Link>
-          <Link to="/saturday-games/replacements" style={{
+          }}>Tables</Link>
+          {/* <Link to="/saturday-games/replacements" style={{
             padding: '12px 0',
             background: 'linear-gradient(90deg, #1976d2 0%, #b6eeb7 100%)',
             borderRadius: '10px',
@@ -85,7 +85,7 @@ function SaturdayGamesHome() {
             textDecoration: 'none',
             transition: 'background 0.2s, color 0.2s',
             width: '100%'
-          }}>Replacements</Link>
+          }}>Replacements</Link> */}
                     <Link to="results" style={{
             padding: '12px 0',
             background: 'linear-gradient(90deg, #81c784 0%, #a5d6a7 100%)',
