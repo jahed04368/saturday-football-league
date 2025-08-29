@@ -1,6 +1,7 @@
 {
     "Bryan": {
         "id": 1,
+        "FullName": "Bryan",
         "gamesPlayed": 19,
         "wins": 10,
         "draws": 3,
@@ -13,6 +14,7 @@
     },
     "Polash": {
         "id": 2,
+        "FullName": "Polash",
         "gamesPlayed": 19,
         "wins": 10,
         "draws": 3,
@@ -25,6 +27,7 @@
     },
     "Enam": {
         "id": 3,
+        "FullName": "Enam",
         "gamesPlayed": 20,
         "wins": 9,
         "draws": 3,
@@ -37,6 +40,7 @@
     },
     "Sid": {
         "id": 4,
+        "FullName": "Sid",
         "gamesPlayed": 15,
         "wins": 9,
         "draws": 3,
@@ -49,6 +53,7 @@
     },
     "Sammy": {
         "id": 5,
+        "FullName": "Sammy",
         "gamesPlayed": 20,
         "wins": 8,
         "draws": 3,
@@ -61,6 +66,7 @@
     },
     "Jahed": {
         "id": 6,
+        "FullName": "Jahed",
         "gamesPlayed": 19,
         "wins": 8,
         "draws": 2,
@@ -73,6 +79,7 @@
     },
     "Saleh": {
         "id": 7,
+        "FullName": "Saleh",
         "gamesPlayed": 16,
         "wins": 8,
         "draws": 0,
@@ -85,6 +92,7 @@
     },
     "Yunis": {
         "id": 8,
+        "FullName": "Yunis",
         "gamesPlayed": 18,
         "wins": 7,
         "draws": 3,
@@ -97,6 +105,7 @@
     },
     "Shuhel": {
         "id": 9,
+        "FullName": "Shuhel",
         "gamesPlayed": 16,
         "wins": 7,
         "draws": 2,
@@ -109,6 +118,7 @@
     },
     "Gabriel": {
         "id": 10,
+        "FullName": "Gabriel",
         "gamesPlayed": 11,
         "wins": 7,
         "draws": 1,
@@ -121,6 +131,7 @@
     },
     "Jax": {
         "id": 11,
+        "FullName": "Jax",
         "gamesPlayed": 15,
         "wins": 7,
         "draws": 1,
@@ -133,6 +144,7 @@
     },
     "Rof": {
         "id": 12,
+        "FullName": "Rof",
         "gamesPlayed": 20,
         "wins": 6,
         "draws": 4,
@@ -145,6 +157,7 @@
     },
     "Anam": {
         "id": 13,
+        "FullName": "Anam",
         "gamesPlayed": 16,
         "wins": 6,
         "draws": 2,
@@ -157,6 +170,7 @@
     },
     "Farhad": {
         "id": 14,
+        "FullName": "Farhad",
         "gamesPlayed": 17,
         "wins": 5,
         "draws": 2,
@@ -169,6 +183,7 @@
     },
     "Konai": {
         "id": 15,
+        "FullName": "Konai",
         "gamesPlayed": 13,
         "wins": 5,
         "draws": 2,
@@ -181,6 +196,7 @@
     },
     "Junaid": {
         "id": 16,
+        "FullName": "Junaid",
         "gamesPlayed": 14,
         "wins": 5,
         "draws": 0,
@@ -193,6 +209,7 @@
     },
     "Saif": {
         "id": 17,
+        "FullName": "Saif",
         "gamesPlayed": 9,
         "wins": 5,
         "draws": 0,
@@ -205,6 +222,7 @@
     },
     "Lewis": {
         "id": 18,
+        "FullName": "Lewis",
         "gamesPlayed": 10,
         "wins": 4,
         "draws": 0,
@@ -217,6 +235,7 @@
     },
     "Lukz": {
         "id": 19,
+        "FullName": "Lukz",
         "gamesPlayed": 7,
         "wins": 3,
         "draws": 1,
@@ -229,6 +248,7 @@
     },
     "Maruf": {
         "id": 20,
+        "FullName": "Maruf",
         "gamesPlayed": 7,
         "wins": 1,
         "draws": 1,

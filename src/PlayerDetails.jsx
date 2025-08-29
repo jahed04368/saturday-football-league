@@ -75,16 +75,16 @@ function PlayerDetails() {
   if (!player) return <div style={{ textAlign: 'center', marginTop: '40px', fontSize: '1.2rem', color: '#666' }}>Player not found</div>;
 
   return (
-    <div>
+    <div style={{ paddingTop: '40px' }}>
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <YearSelector />
       </div>
       <div style={{ maxWidth: '600px', margin: '40px auto', textAlign: 'center', background: '#eafbe7', border: '1px solid #e0e0e0', borderRadius: '18px', padding: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '40px', flexWrap: 'wrap' }}>
         <div style={{ flex: '0 0 160px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-          <img src={imageUrl} alt={player.playerName || player.name} style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #eaeaea', background: '#fff', marginBottom: '18px' }} />
+          <img src={imageUrl} alt={player.FullName || player.playerName || player.name} style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #eaeaea', background: '#fff', marginBottom: '18px' }} />
         </div>
         <div style={{ flex: '1', textAlign: 'left', fontSize: '1.1rem', fontWeight: 500, color: '#111', minWidth: '180px' }}>
-          <div style={{ marginBottom: '18px', fontWeight: 700, fontSize: '1.2rem', textAlign: 'center' }}>{player.playerName || player.name}</div>
+          <div style={{ marginBottom: '18px', fontWeight: 700, fontSize: '1.2rem', textAlign: 'center' }}>{player.FullName || player.playerName || player.name}</div>
           <div style={{ marginBottom: '12px' }}><strong>Position:</strong> {player.position}</div>
           <div style={{ marginBottom: '12px' }}><strong>Age:</strong> {player.age}</div>
           <div style={{ marginBottom: '12px' }}><strong>Games Played:</strong> {player.gamesPlayed}</div>
