@@ -70,6 +70,69 @@ public/
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
+## Weekly Data Management
+
+### Adding New Matches Every Week
+
+To keep your Saturday Football League up to date, you'll need to add new match data weekly. The system organizes data by year, so make sure you're editing the correct year's files.
+
+#### 1. **Adding Main Matches** (`public/data/YEAR/mainMatches.json`)
+For weekly fixture results without goal scorer details:
+```json
+{
+  "id": 12,
+  "date": "2025-03-23",
+  "homePlayer": "PlayerName1",
+  "awayPlayer": "PlayerName2", 
+  "homeScore": 2,
+  "awayScore": 1,
+  "status": "completed"
+}
+```
+
+#### 2. **Adding Detailed Results** (`public/data/YEAR/results.json`)
+For comprehensive match results with goal scorers and assists:
+```json
+{
+  "id": 12,
+  "date": "2025-03-23",
+  "homePlayer": "PlayerName1",
+  "awayPlayer": "PlayerName2",
+  "homeScore": 2,
+  "awayScore": 1,
+  "status": "completed",
+  "goalScorers": [
+    { "player": "PlayerName1", "goals": 2, "assists": 1 },
+    { "player": "PlayerName2", "goals": 1, "assists": 0 }
+  ]
+}
+```
+
+#### 3. **Updating Player Statistics**
+After each week's matches, update player win/loss records in:
+- `public/data/YEAR/mainPlayers.json` - For main squad players
+- `public/data/YEAR/replacementPlayers.json` - For replacement players
+
+Update the relevant player's stats:
+```json
+"PlayerName": {
+  "gamesPlayed": 8,
+  "wins": 5,
+  "draws": 1,
+  "losses": 2,
+  "points": 16
+}
+```
+
+#### 4. **Weekly Workflow**
+1. **Record match results** - Add to both `mainMatches.json` and `results.json`
+2. **Track goal scorers** - Include goals and assists in `results.json`
+3. **Update win/loss records** - Modify player statistics based on match outcomes
+4. **Commit changes** - Use Git to save your weekly updates
+5. **Deploy** - Push to GitHub to update the live application
+
+**Pro Tip:** Keep a weekly checklist to ensure all data is updated consistently. The Stats page will automatically calculate and display the most current information based on your data files.
+
 ## Contributing
 
 This is a personal project for managing Saturday football league activities. Feel free to fork and adapt for your own use.
