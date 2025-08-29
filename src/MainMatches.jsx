@@ -120,9 +120,37 @@ function MainMatches() {
                 </span>
                 <span style={{ fontWeight: 600, color: '#1976d2' }}>{fixture.awayPlayer}</span>
               </div>
-              <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'right' }}>
-                <div>{new Date(fixture.date).toLocaleDateString()}</div>
-                <div style={{ color: '#43a047', fontWeight: 500 }}>{fixture.status}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                {fixture.youtubeLink && (
+                  <a 
+                    href={fixture.youtubeLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '32px',
+                      height: '32px',
+                      backgroundColor: '#ff0000',
+                      borderRadius: '6px',
+                      textDecoration: 'none',
+                      transition: 'transform 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'scale(1.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'scale(1)';
+                    }}
+                  >
+                    <span style={{ color: 'white', fontSize: '14px' }}>▶</span>
+                  </a>
+                )}
+                <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'right' }}>
+                  <div>{new Date(fixture.date).toLocaleDateString()}</div>
+                  <div style={{ color: '#43a047', fontWeight: 500 }}>{fixture.status}</div>
+                </div>
               </div>
             </div>
           ))}
