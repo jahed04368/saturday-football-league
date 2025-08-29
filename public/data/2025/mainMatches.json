@@ -1,0 +1,103 @@
+{
+  "fixtures": [
+    {
+      "id": 1,
+      "date": "2025-01-05",
+      "homePlayer": "Bryan",
+      "awayPlayer": "Polash",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "completed"
+    },
+    {
+      "id": 2,
+      "date": "2025-01-12",
+      "homePlayer": "Enam",
+      "awayPlayer": "Sid",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "completed"
+    },
+    {
+      "id": 3,
+      "date": "2025-01-19",
+      "homePlayer": "Sammy",
+      "awayPlayer": "Jahed",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "completed"
+    },
+    {
+      "id": 4,
+      "date": "2025-01-26",
+      "homePlayer": "Saleh",
+      "awayPlayer": "Yunis",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "completed"
+    },
+    {
+      "id": 5,
+      "date": "2025-02-02",
+      "homePlayer": "Shuhel",
+      "awayPlayer": "Gabriel",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "completed"
+    },
+    {
+      "id": 6,
+      "date": "2025-02-09",
+      "homePlayer": "Jax",
+      "awayPlayer": "Rof",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "completed"
+    },
+    {
+      "id": 7,
+      "date": "2025-02-16",
+      "homePlayer": "Anam",
+      "awayPlayer": "Farhad",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "completed"
+    },
+    {
+      "id": 8,
+      "date": "2025-02-23",
+      "homePlayer": "Konai",
+      "awayPlayer": "Junaid",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "completed"
+    },
+    {
+      "id": 9,
+      "date": "2025-03-02",
+      "homePlayer": "Saif",
+      "awayPlayer": "Lewis",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "completed"
+    },
+    {
+      "id": 10,
+      "date": "2025-03-09",
+      "homePlayer": "Lukz",
+      "awayPlayer": "Maruf",
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "completed"
+    },
+    {
+      "id": 11,
+      "date": "2025-03-16",
+      "homePlayer": "Jahed",
+      "awayPlayer": "Maruf",
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "completed"
+    }
+  ]
+}
