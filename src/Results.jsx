@@ -65,7 +65,40 @@ function Results() {
         width: '100%',
         textAlign: 'center',
         marginBottom: '32px',
+        position: 'relative'
       }}>
+        {/* Home Icon linking to saturday-games */}
+        <div style={{
+          position: 'absolute',
+          top: '16px',
+          left: '16px'
+        }}>
+          <Link to="/saturday-games" style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '40px',
+            height: '40px',
+            background: '#f5f5f5',
+            borderRadius: '50%',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            textDecoration: 'none',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'scale(1.1)';
+            e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'scale(1)';
+            e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+          }}>
+            <span style={{
+              fontSize: '20px',
+              color: '#1976d2'
+            }}>⚽</span>
+          </Link>
+        </div>
         <h2 style={{ color: '#1976d2', fontWeight: 800, fontSize: '2rem', marginBottom: '24px', fontFamily: 'Inter, Segoe UI, Arial, sans-serif', letterSpacing: '1px' }}>
           Match Results
         </h2>

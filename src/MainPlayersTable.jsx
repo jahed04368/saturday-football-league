@@ -76,7 +76,39 @@ function MainPlayersTable() {
   }, [selectedYear]);
 
   return (
-    <div className={styles.container} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className={styles.container} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+      {/* Home Icon linking to saturday-games */}
+      <div style={{
+        position: 'absolute',
+        top: '16px',
+        left: '16px'
+      }}>
+        <Link to="/saturday-games" style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '40px',
+          height: '40px',
+          background: '#f5f5f5',
+          borderRadius: '50%',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          textDecoration: 'none',
+          transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'scale(1.1)';
+          e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'scale(1)';
+          e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+        }}>
+          <span style={{
+            fontSize: '20px',
+            color: '#1976d2'
+          }}>⚽</span>
+        </Link>
+      </div>
       <div className={styles.leaderboardTitle} style={{ textAlign: 'center', color: '#1976d2', fontWeight: 700, fontSize: '2.5rem', marginBottom: '24px' }}>Main Players Leaderboard</div>
       
       <YearSelector />
