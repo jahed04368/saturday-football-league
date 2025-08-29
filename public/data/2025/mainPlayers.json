@@ -8,7 +8,7 @@
         "losses": 6,
         "points": 33,
         "rank": 1,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -21,7 +21,7 @@
         "losses": 6,
         "points": 33,
         "rank": 1,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -34,7 +34,7 @@
         "losses": 7,
         "points": 33,
         "rank": 1,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -47,7 +47,7 @@
         "losses": 3,
         "points": 30,
         "rank": 4,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -60,7 +60,7 @@
         "losses": 9,
         "points": 27,
         "rank": 5,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -73,7 +73,7 @@
         "losses": 4,
         "points": 26,
         "rank": 6,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -86,7 +86,7 @@
         "losses": 8,
         "points": 24,
         "rank": 7,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -99,7 +99,7 @@
         "losses": 8,
         "points": 24,
         "rank": 7,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -125,7 +125,7 @@
         "losses": 3,
         "points": 22,
         "rank": 10,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -138,7 +138,7 @@
         "losses": 7,
         "points": 22,
         "rank": 10,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -151,7 +151,7 @@
         "losses": 10,
         "points": 22,
         "rank": 10,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -164,7 +164,7 @@
         "losses": 8,
         "points": 20,
         "rank": 13,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -177,7 +177,7 @@
         "losses": 9,
         "points": 18,
         "rank": 14,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -190,7 +190,7 @@
         "losses": 6,
         "points": 17,
         "rank": 15,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -203,7 +203,7 @@
         "losses": 7,
         "points": 17,
         "rank": 16,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -216,7 +216,7 @@
         "losses": 4,
         "points": 15,
         "rank": 17,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
@@ -229,7 +229,7 @@
         "losses": 4,
         "points": 14,
         "rank": 18,
- "image": "/player-images/image-example.jpg",
+        "image": "/player-images/image-example.jpg",
         "position": "",
         "age": null
     },
