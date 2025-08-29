@@ -1,29 +1,7 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/data/(.*)",
-      "destination": "/data/$1"
-    },
-    {
-      "source": "/images/(.*)",
-      "destination": "/images/$1"
-    },
-    {
-      "source": "/player-images/(.*)",
-      "destination": "/player-images/$1"
-    },
-    {
-      "source": "/saturday-games/(.*)",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/player/(.*)",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/((?!api|_next|_vercel|favicon\\.ico|vercel\\.svg|vite\\.svg|data|images|player-images).*)",
+      "source": "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
