@@ -135,7 +135,7 @@ function MainPlayersTable() {
               <td>{player.wins}</td>
               <td>{player.draws}</td>
               <td>{player.losses}</td>
-              <td>{player.points}</td>
+              <td className={styles.pointsColumn}>{player.points}</td>
             </tr>
           ))}
         </tbody>
