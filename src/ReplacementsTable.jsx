@@ -109,7 +109,7 @@ function ReplacementsTable() {
           }}>⚽</span>
         </Link>
       </div>
-      <div className={styles.leaderboardTitle} style={{ textAlign: 'center', color: '#1976d2', fontWeight: 700, fontSize: '2.5rem', marginBottom: '24px' }}>Replacements Leaderboard</div>
+      <div className={styles.leaderboardTitle} style={{ textAlign: 'center', color: '#1976d2', fontWeight: 700, fontSize: '2.0rem', marginBottom: '24px' }}>Replacements Leaderboard</div>
       
       <YearSelector />
       <table className={styles.table} style={{ margin: '0 auto' }}>
