@@ -1,26 +1,84 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
+import { useYear } from './useYear';
+import YearSelector from './YearSelector';
 
 function PlayerDetails() {
   const { id } = useParams();
+  const { selectedYear } = useYear();
   const [player, setPlayer] = useState(null);
+  const [loading, setLoading] = useState(true);
   const imageUrl = player && player?.image ? player?.image : '/player-images/image-example.jpg';
-console.log(imageUrl)
-  useEffect(() => {
-    Promise.all([
-      fetch('/data/mainPlayers.json').then(res => res.json()),
-      fetch('/data/replacementPlayers.json').then(res => res.json())
-    ]).then(([mainData, replacementData]) => {
-      const allPlayers = [...Object.values(mainData), ...Object.values(replacementData)];
-      const found = allPlayers.find(p => p.id === Number(id));
-      setPlayer(found);
-    });
-  }, [id]);
 
-  if (!player) return <div>Loading...</div>;
+  useEffect(() => {
+    const fetchPlayerData = async () => {
+      setLoading(true);
+      
+      if (selectedYear === 'all-time') {
+        // Fetch data from all years and combine
+        const currentYear = moment().year();
+        const allYears = ['2027', '2026', '2025'];
+        const years = allYears.filter(year => parseInt(year) <= currentYear);
+        let allPlayers = [];
+
+        for (const year of years) {
+          try {
+            const [mainRes, replacementRes] = await Promise.all([
+              fetch(`/data/${year}/mainPlayers.json`),
+              fetch(`/data/${year}/replacementPlayers.json`)
+            ]);
+            
+            const mainData = await mainRes.json();
+            const replacementData = await replacementRes.json();
+            
+            // Combine and add year info
+            const yearPlayers = [
+              ...Object.values(mainData).map(p => ({...p, year})),
+              ...Object.values(replacementData).map(p => ({...p, year}))
+            ];
+            allPlayers = [...allPlayers, ...yearPlayers];
+          } catch (err) {
+            console.log(`No data found for year ${year}`, err);
+          }
+        }
+        
+        const found = allPlayers.find(p => p.id === Number(id));
+        setPlayer(found);
+      } else {
+        // Fetch data for specific year
+        try {
+          const [mainRes, replacementRes] = await Promise.all([
+            fetch(`/data/${selectedYear}/mainPlayers.json`),
+            fetch(`/data/${selectedYear}/replacementPlayers.json`)
+          ]);
+          
+          const mainData = await mainRes.json();
+          const replacementData = await replacementRes.json();
+          
+          const allPlayers = [...Object.values(mainData), ...Object.values(replacementData)];
+          const found = allPlayers.find(p => p.id === Number(id));
+          setPlayer(found);
+        } catch (err) {
+          console.error(`Error fetching player data for year ${selectedYear}:`, err);
+          setPlayer(null);
+        }
+      }
+      
+      setLoading(false);
+    };
+
+    fetchPlayerData();
+  }, [id, selectedYear]);
+
+  if (loading) return <div style={{ textAlign: 'center', marginTop: '40px', fontSize: '1.2rem' }}>Loading player data...</div>;
+  if (!player) return <div style={{ textAlign: 'center', marginTop: '40px', fontSize: '1.2rem', color: '#666' }}>Player not found</div>;
 
   return (
     <div>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <YearSelector />
+      </div>
       <div style={{ maxWidth: '600px', margin: '40px auto', textAlign: 'center', background: '#eafbe7', border: '1px solid #e0e0e0', borderRadius: '18px', padding: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '40px', flexWrap: 'wrap' }}>
         <div style={{ flex: '0 0 160px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
           <img src={imageUrl} alt={player.playerName || player.name} style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #eaeaea', background: '#fff', marginBottom: '18px' }} />
