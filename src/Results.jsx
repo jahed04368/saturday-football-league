@@ -7,6 +7,7 @@ import YearSelector from './YearSelector';
 function Results() {
   const { selectedYear } = useYear();
   const [fixtures, setFixtures] = useState([]);
+  const [playerIds, setPlayerIds] = useState({});
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -43,7 +44,68 @@ function Results() {
       }
     };
 
+    const fetchPlayerIds = async () => {
+      // Fetch player data to get IDs for linking
+      try {
+        if (selectedYear === 'all-time') {
+          // For all-time, collect player IDs from all years
+          const currentYear = moment().year();
+          const allYears = ['2027', '2026', '2025'];
+          const years = allYears.filter(year => parseInt(year) <= currentYear);
+          const idMap = {};
+
+          for (const year of years) {
+            try {
+              const [mainRes, replacementRes] = await Promise.all([
+                fetch(`/data/${year}/mainPlayers.json`),
+                fetch(`/data/${year}/replacementPlayers.json`)
+              ]);
+              
+              const mainData = await mainRes.json();
+              const replacementData = await replacementRes.json();
+              
+              // Add player IDs to map (later years will overwrite earlier ones)
+              Object.entries(mainData).forEach(([name, data]) => {
+                idMap[name] = data.id;
+              });
+              Object.entries(replacementData).forEach(([name, data]) => {
+                idMap[name] = data.id;
+              });
+            } catch (err) {
+              console.log(`No player data found for year ${year}`, err);
+            }
+          }
+          
+          setPlayerIds(idMap);
+        } else {
+          // For specific year
+          const [mainRes, replacementRes] = await Promise.all([
+            fetch(`/data/${selectedYear}/mainPlayers.json`),
+            fetch(`/data/${selectedYear}/replacementPlayers.json`)
+          ]);
+          
+          const mainData = await mainRes.json();
+          const replacementData = await replacementRes.json();
+          
+          // Create a mapping of player names to IDs
+          const idMap = {};
+          Object.entries(mainData).forEach(([name, data]) => {
+            idMap[name] = data.id;
+          });
+          Object.entries(replacementData).forEach(([name, data]) => {
+            idMap[name] = data.id;
+          });
+          
+          setPlayerIds(idMap);
+        }
+      } catch (err) {
+        console.error(`Error fetching player data:`, err);
+        setPlayerIds({});
+      }
+    };
+
     fetchResults();
+    fetchPlayerIds();
   }, [selectedYear]);
 
   return (
@@ -117,11 +179,45 @@ function Results() {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
-                  <span style={{ fontWeight: 600, color: '#1976d2' }}>{fixture.homePlayer}</span>
+                  {playerIds[fixture.homePlayer] ? (
+                    <Link to={`/player/${playerIds[fixture.homePlayer]}`} style={{
+                      fontWeight: 600, 
+                      color: '#1976d2',
+                      textDecoration: 'none',
+                      transition: 'color 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#1565c0';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = '#1976d2';
+                    }}>
+                      {fixture.homePlayer}
+                    </Link>
+                  ) : (
+                    <span style={{ fontWeight: 600, color: '#1976d2' }}>{fixture.homePlayer}</span>
+                  )}
                   <span style={{ fontSize: '1.2rem', fontWeight: 700, color: '#333' }}>
                     {fixture.homeScore} - {fixture.awayScore}
                   </span>
-                  <span style={{ fontWeight: 600, color: '#1976d2' }}>{fixture.awayPlayer}</span>
+                  {playerIds[fixture.awayPlayer] ? (
+                    <Link to={`/player/${playerIds[fixture.awayPlayer]}`} style={{
+                      fontWeight: 600, 
+                      color: '#1976d2',
+                      textDecoration: 'none',
+                      transition: 'color 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#1565c0';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = '#1976d2';
+                    }}>
+                      {fixture.awayPlayer}
+                    </Link>
+                  ) : (
+                    <span style={{ fontWeight: 600, color: '#1976d2' }}>{fixture.awayPlayer}</span>
+                  )}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   {fixture.youtubeLink && (
@@ -183,7 +279,23 @@ function Results() {
                           fontWeight: 500,
                           border: '1px solid #c8e6c9'
                         }}>
-                          {scorer.player} ({scorer.goals} goal{scorer.goals > 1 ? 's' : ''})
+                          {playerIds[scorer.player] ? (
+                            <Link to={`/player/${playerIds[scorer.player]}`} style={{
+                              color: '#2e7d32',
+                              textDecoration: 'none',
+                              transition: 'color 0.2s ease'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.color = '#1b5e20';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.color = '#2e7d32';
+                            }}>
+                              {scorer.player}
+                            </Link>
+                          ) : (
+                            scorer.player
+                          )} ({scorer.goals} goal{scorer.goals > 1 ? 's' : ''})
                         </span>
                       ))}
                   </div>

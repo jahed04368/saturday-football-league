@@ -118,9 +118,9 @@ function ReplacementsTable() {
             <th>Rank</th>
             <th>Player</th>
             <th>Games Played</th>
-            <th>Wins</th>
-            <th>Draws</th>
-            <th>Losses</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
             <th>Points</th>
           </tr>
         </thead>

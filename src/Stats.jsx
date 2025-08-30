@@ -8,8 +8,10 @@ function Stats() {
   const { selectedYear } = useYear();
   const [mainPlayers, setMainPlayers] = useState({});
   const [fixtures, setFixtures] = useState([]);
+  const [playerIds, setPlayerIds] = useState({});
   const [stats, setStats] = useState({
     mostWins: [],
+    mostCaptainedWins: [],
     goalScorers: [],
     assistProviders: []
   });
@@ -23,6 +25,7 @@ function Stats() {
         const years = allYears.filter(year => parseInt(year) <= currentYear);
         let allPlayers = {};
         let allFixtures = [];
+        let idMap = {};
 
         for (const year of years) {
           try {
@@ -48,6 +51,8 @@ function Stats() {
               } else {
                 allPlayers[playerName] = { ...playersData[playerName] };
               }
+              // Add to ID map (later years will overwrite earlier ones)
+              idMap[playerName] = playersData[playerName].id;
             });
 
             // Add replacement players
@@ -57,6 +62,8 @@ function Stats() {
               } else {
                 allPlayers[playerName] = { ...replacementData[playerName] };
               }
+              // Add to ID map
+              idMap[playerName] = replacementData[playerName].id;
             });
 
             // Add fixtures
@@ -68,19 +75,32 @@ function Stats() {
 
         setMainPlayers(allPlayers);
         setFixtures(allFixtures);
+        setPlayerIds(idMap);
       } else {
         // Fetch data for specific year
         try {
-          const [playersRes, fixturesRes] = await Promise.all([
+          const [playersRes, fixturesRes, replacementRes] = await Promise.all([
             fetch(`/data/${selectedYear}/mainPlayers.json`),
-            fetch(`/data/${selectedYear}/results.json`)
+            fetch(`/data/${selectedYear}/results.json`),
+            fetch(`/data/${selectedYear}/replacementPlayers.json`)
           ]);
           
           const playersData = await playersRes.json();
           const fixturesData = await fixturesRes.json();
+          const replacementData = await replacementRes.json();
+
+          // Create ID map for this year
+          const idMap = {};
+          Object.entries(playersData).forEach(([name, data]) => {
+            idMap[name] = data.id;
+          });
+          Object.entries(replacementData).forEach(([name, data]) => {
+            idMap[name] = data.id;
+          });
 
           setMainPlayers(playersData);
           setFixtures(fixturesData.fixtures);
+          setPlayerIds(idMap);
         } catch (err) {
           console.error(`Error fetching data for year ${selectedYear}:`, err);
         }
@@ -105,8 +125,20 @@ function Stats() {
         // Calculate goals and assists (only if goalScorers data exists)
         const goalStats = {};
         const assistStats = {};
+        const captainedWinsStats = {};
 
         fixtures.forEach(fixture => {
+          // Count captained wins (when player won as home or away player)
+          if (fixture.status === 'completed') {
+            if (fixture.homeScore > fixture.awayScore) {
+              // Home player won
+              captainedWinsStats[fixture.homePlayer] = (captainedWinsStats[fixture.homePlayer] || 0) + 1;
+            } else if (fixture.awayScore > fixture.homeScore) {
+              // Away player won
+              captainedWinsStats[fixture.awayPlayer] = (captainedWinsStats[fixture.awayPlayer] || 0) + 1;
+            }
+          }
+
           if (fixture.goalScorers) {
             fixture.goalScorers.forEach(scorer => {
               // Count goals
@@ -121,6 +153,13 @@ function Stats() {
           }
         });
 
+        // Sort captained wins in descending order
+        const captainedWinsValues = Object.values(captainedWinsStats);
+        const maxCaptainedWins = captainedWinsValues.length > 0 ? Math.max(...captainedWinsValues) : 0;
+        const playersWithMostCaptainedWins = Object.entries(captainedWinsStats)
+          .filter(([, wins]) => wins === maxCaptainedWins && wins > 0)
+          .map(([player, wins]) => ({ player, wins }));
+
         // Sort goals and assists in descending order
         const sortedGoalScorers = Object.entries(goalStats)
           .sort(([,a], [,b]) => b - a)
@@ -132,6 +171,7 @@ function Stats() {
 
         setStats({
           mostWins: playersWithMostWins,
+          mostCaptainedWins: playersWithMostCaptainedWins,
           goalScorers: sortedGoalScorers,
           assistProviders: sortedAssistProviders
         });
@@ -229,7 +269,67 @@ function Stats() {
                 fontWeight: 700,
                 marginBottom: index < stats.mostWins.length - 1 ? '8px' : '0'
               }}>
-                {playerData.player} - {playerData.wins} wins
+                {playerIds[playerData.player] ? (
+                  <Link to={`/player/${playerIds[playerData.player]}`} style={{
+                    color: '#fff',
+                    textDecoration: 'none',
+                    transition: 'color 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = '#fff3e0';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = '#fff';
+                  }}>
+                    {playerData.player}
+                  </Link>
+                ) : (
+                  playerData.player
+                )} - {playerData.wins} wins
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Most Captained Wins Section */}
+        {stats.mostCaptainedWins && stats.mostCaptainedWins.length > 0 && (
+          <div style={{
+            background: '#f3e5f5',
+            borderRadius: '16px',
+            padding: '24px',
+            marginBottom: '32px',
+            border: '2px solid #ce93d8'
+          }}>
+            <h3 style={{ color: '#7b1fa2', marginBottom: '16px', fontSize: '1.4rem' }}>
+              👑 Most Captained Wins
+            </h3>
+            {stats.mostCaptainedWins.map((playerData, index) => (
+              <div key={playerData.player} style={{
+                background: '#9c27b0',
+                color: '#fff',
+                padding: '16px',
+                borderRadius: '12px',
+                fontSize: '1.2rem',
+                fontWeight: 700,
+                marginBottom: index < stats.mostCaptainedWins.length - 1 ? '8px' : '0'
+              }}>
+                {playerIds[playerData.player] ? (
+                  <Link to={`/player/${playerIds[playerData.player]}`} style={{
+                    color: '#fff',
+                    textDecoration: 'none',
+                    transition: 'color 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = '#f3e5f5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = '#fff';
+                  }}>
+                    {playerData.player}
+                  </Link>
+                ) : (
+                  playerData.player
+                )} - {playerData.wins} captained wins
               </div>
             ))}
           </div>
@@ -258,7 +358,25 @@ function Stats() {
                 alignItems: 'center',
                 fontWeight: index === 0 ? 700 : 500
               }}>
-                <span>{index + 1}. {scorer.player}</span>
+                <span>
+                  {index + 1}. {playerIds[scorer.player] ? (
+                    <Link to={`/player/${playerIds[scorer.player]}`} style={{
+                      color: '#fff',
+                      textDecoration: 'none',
+                      transition: 'color 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#e8f5e8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = '#fff';
+                    }}>
+                      {scorer.player}
+                    </Link>
+                  ) : (
+                    scorer.player
+                  )}
+                </span>
                 <span>{scorer.goals} goals</span>
               </div>
             ))}
@@ -288,7 +406,25 @@ function Stats() {
                 alignItems: 'center',
                 fontWeight: index === 0 ? 700 : 500
               }}>
-                <span>{index + 1}. {provider.player}</span>
+                <span>
+                  {index + 1}. {playerIds[provider.player] ? (
+                    <Link to={`/player/${playerIds[provider.player]}`} style={{
+                      color: '#fff',
+                      textDecoration: 'none',
+                      transition: 'color 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#e3f2fd';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = '#fff';
+                    }}>
+                      {provider.player}
+                    </Link>
+                  ) : (
+                    provider.player
+                  )}
+                </span>
                 <span>{provider.assists} assists</span>
               </div>
             ))}
